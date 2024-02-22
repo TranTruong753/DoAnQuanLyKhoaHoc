@@ -70,6 +70,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(250, 250, 250));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Variable", 0, 14))); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -123,6 +124,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jPanel9.setPreferredSize(new java.awt.Dimension(300, 360));
         jPanel9.setLayout(new java.awt.BorderLayout());
 
+        jPanel11.setBackground(new java.awt.Color(250, 250, 250));
         jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
@@ -166,6 +168,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jComboBox1.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel11.add(jComboBox1);
 
+        jPanel17.setOpaque(false);
         jPanel17.setPreferredSize(new java.awt.Dimension(250, 70));
         jPanel17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 42, 30));
 
@@ -183,6 +186,9 @@ public class quanLyPhanCong extends javax.swing.JDialog {
 
         jPanel9.add(jPanel11, java.awt.BorderLayout.CENTER);
 
+        jPanel12.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel12.setPreferredSize(new java.awt.Dimension(290, 10));
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -191,21 +197,23 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
         jPanel9.add(jPanel12, java.awt.BorderLayout.PAGE_START);
 
+        jPanel13.setBackground(new java.awt.Color(250, 250, 250));
         jPanel13.setPreferredSize(new java.awt.Dimension(290, 70));
         jPanel13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
         jButton5.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jButton5.setText("XEM THỐNG KÊ DANH SÁCH LỚP");
-        jButton5.setPreferredSize(new java.awt.Dimension(250, 40));
+        jButton5.setPreferredSize(new java.awt.Dimension(260, 40));
         jPanel13.add(jButton5);
 
         jPanel9.add(jPanel13, java.awt.BorderLayout.PAGE_END);
 
+        jPanel14.setBackground(new java.awt.Color(250, 250, 250));
         jPanel14.setPreferredSize(new java.awt.Dimension(10, 163));
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -216,11 +224,12 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 322, Short.MAX_VALUE)
         );
 
         jPanel9.add(jPanel14, java.awt.BorderLayout.LINE_END);
 
+        jPanel15.setBackground(new java.awt.Color(250, 250, 250));
         jPanel15.setPreferredSize(new java.awt.Dimension(10, 163));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -231,7 +240,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 322, Short.MAX_VALUE)
         );
 
         jPanel9.add(jPanel15, java.awt.BorderLayout.LINE_START);
@@ -249,7 +258,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 429, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel10, java.awt.BorderLayout.LINE_START);
@@ -295,7 +304,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 549, Short.MAX_VALUE)
         );
 
         khung.add(jPanel5, java.awt.BorderLayout.LINE_END);
@@ -311,7 +320,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 549, Short.MAX_VALUE)
         );
 
         khung.add(jPanel6, java.awt.BorderLayout.LINE_START);
@@ -332,7 +341,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
