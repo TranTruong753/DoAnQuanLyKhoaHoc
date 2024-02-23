@@ -59,10 +59,10 @@ public class courseinstructorDAL implements queryDatabase<courseinstructorDTO>{
             Connection con = connectSql.getConnection();
 
             // Bước 2: tạo ra đối tượng statement
-            String sql = "SELECT * FROM courseinstructor WHERE CourseID = ? AND PersonID = ?";
+            String sql = "SELECT * FROM courseinstructor WHERE CourseID = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, t.getCourseID());
-            st.setInt(2, t.getPersonID());
+            
             // Bước 3: thực thi câu lệnh SQL          
             ResultSet rs = st.executeQuery();
 

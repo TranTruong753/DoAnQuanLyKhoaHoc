@@ -4,6 +4,19 @@
  */
 package GUI;
 
+import BLL.courseinstructorBLL;
+import BLL.personBLL;
+import DTO.courseinstructorDTO;
+import DTO.personDTO;
+import LoadTable.LoadTableCourseinstructor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
@@ -13,9 +26,43 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     /**
      * Creates new form quanLyPhanCong
      */
+    private courseinstructorBLL courseinstructorbll =new courseinstructorBLL();
+    private personBLL personbll=new personBLL();
+    private List<personDTO> listps = personbll.selectAll();
+    LoadTableCourseinstructor Loadtable ;
     public quanLyPhanCong(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        Loadtable = new LoadTableCourseinstructor(jpnView, btnsave, jtfTim,btnremove,this);
+        Loadtable.setDateToTable();
+        //controller.setEvent();
+//        Loadtable.getTable().addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(e.getClickCount()==1 && Loadtable.getTable().getSelectedRow() != -1){
+//                    DefaultTableModel model = (DefaultTableModel) Loadtable.getTable().getModel();
+//                    int SRow = Loadtable.getTable().getSelectedRow();                       //Lay Index dong duoc chon
+//                    SRow = Loadtable.getTable().convertRowIndexToModel(SRow);     //Khi sap xep, Index dong duoc chon van dung                   
+//                    
+//                    jtfCourseID.setText( model.getValueAt(SRow, 0).toString());
+//                    jtfTitle.setText(model.getValueAt(SRow,1).toString());
+//                    jtfCredits.setText(model.getValueAt(SRow,2).toString());
+//                    jtfDepartment.setText(model.getValueAt(SRow,3).toString());
+//                    jboxPersonID.removeAllItems();
+//                    jboxPersonID.addItem("null");
+//                    for(personDTO ps: listps){
+//                        if(ps.getHireDate()!=null)
+//                        jboxPersonID.addItem(""+ps.getPersonID());
+//                    }
+//                    if(model.getValueAt(SRow, 4) != null)
+//                        jboxPersonID.setSelectedItem(model.getValueAt(SRow, 4).toString());
+//
+//                    
+//                    
+//                }
+//            }
+//            
+//        });
         setLocationRelativeTo(null) ;
     }
 
@@ -31,26 +78,25 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         khung = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jpnView = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jtfTimKiem = new javax.swing.JTextField();
+        jtfTim = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfCourseID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtfTitle = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jtfCredits = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jtfDepartment = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jboxPersonID = new javax.swing.JComboBox<>();
         jPanel17 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnsave = new javax.swing.JButton();
+        btnremove = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -74,20 +120,20 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Variable", 0, 14))); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jpnView.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
+        jpnView.setLayout(jpnViewLayout);
+        jpnViewLayout.setHorizontalGroup(
+            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 665, Short.MAX_VALUE)
+        );
+        jpnViewLayout.setVerticalGroup(
+            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 403, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jpnView, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -96,10 +142,10 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jPanel7.setPreferredSize(new java.awt.Dimension(980, 60));
         jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        jtfTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(204, 204, 204)));
-        jtfTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        jPanel7.add(jtfTimKiem);
+        jtfTim.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfTim.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(204, 204, 204)));
+        jtfTim.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel7.add(jtfTim);
 
         jPanel2.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
@@ -132,55 +178,63 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jLabel2.setPreferredSize(new java.awt.Dimension(95, 25));
         jPanel11.add(jLabel2);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(jTextField1);
+        jtfCourseID.setEnabled(false);
+        jtfCourseID.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(jtfCourseID);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         jLabel3.setText("Title :");
         jLabel3.setPreferredSize(new java.awt.Dimension(95, 25));
         jPanel11.add(jLabel3);
 
-        jTextField2.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(jTextField2);
+        jtfTitle.setEnabled(false);
+        jtfTitle.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(jtfTitle);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         jLabel4.setText("Credits :");
         jLabel4.setPreferredSize(new java.awt.Dimension(95, 25));
         jPanel11.add(jLabel4);
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(jTextField3);
+        jtfCredits.setEnabled(false);
+        jtfCredits.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(jtfCredits);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         jLabel5.setText("DepartmentID :");
         jLabel5.setPreferredSize(new java.awt.Dimension(95, 25));
         jPanel11.add(jLabel5);
 
-        jTextField4.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(jTextField4);
+        jtfDepartment.setEnabled(false);
+        jtfDepartment.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(jtfDepartment);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
         jLabel6.setText("PersonID :");
         jLabel6.setPreferredSize(new java.awt.Dimension(95, 25));
         jPanel11.add(jLabel6);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(jComboBox1);
+        jboxPersonID.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(jboxPersonID);
 
         jPanel17.setOpaque(false);
         jPanel17.setPreferredSize(new java.awt.Dimension(250, 70));
         jPanel17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 42, 30));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jButton3.setText("Lưu");
-        jButton3.setPreferredSize(new java.awt.Dimension(80, 30));
-        jPanel17.add(jButton3);
+        btnsave.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        btnsave.setText("Lưu");
+        btnsave.setPreferredSize(new java.awt.Dimension(80, 30));
+        btnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsaveActionPerformed(evt);
+            }
+        });
+        jPanel17.add(btnsave);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jButton4.setText("Xóa");
-        jButton4.setPreferredSize(new java.awt.Dimension(80, 30));
-        jPanel17.add(jButton4);
+        btnremove.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        btnremove.setText("Xóa");
+        btnremove.setPreferredSize(new java.awt.Dimension(80, 30));
+        jPanel17.add(btnremove);
 
         jPanel11.add(jPanel17);
 
@@ -330,6 +384,105 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+        courseinstructorDTO courseinstructorDTO= new courseinstructorDTO();
+        if(jboxPersonID.getSelectedItem().equals("null"))
+            JOptionPane.showMessageDialog(null, "Hãy chọn giảng viên dạy", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        
+        else
+            
+        {
+            courseinstructorDTO.setCourseID(Integer.parseInt(jtfCourseID.getText()));
+            courseinstructorDTO.setPersonID(Integer.parseInt(jboxPersonID.getSelectedItem().toString()));
+            if(courseinstructorbll.selectById(courseinstructorDTO)==null){
+                
+                if(courseinstructorbll.insert(courseinstructorDTO)==1)
+                JOptionPane.showMessageDialog(null, "Lưu thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            else 
+                JOptionPane.showMessageDialog(null, "Lưu thất bại", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                
+                
+            }
+            else
+            {
+                if(courseinstructorbll.update(courseinstructorDTO)==1)
+                JOptionPane.showMessageDialog(null, "Lưu thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
+             else 
+                 JOptionPane.showMessageDialog(null, "Lưu thất bại", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                
+            }
+            Loadtable.setDateToTable();    
+//            Loadtable.getTable().addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if(e.getClickCount()==1 && Loadtable.getTable().getSelectedRow() != -1){
+//                    DefaultTableModel model = (DefaultTableModel) Loadtable.getTable().getModel();
+//                    int SRow = Loadtable.getTable().getSelectedRow();                       //Lay Index dong duoc chon
+//                    SRow = Loadtable.getTable().convertRowIndexToModel(SRow);     //Khi sap xep, Index dong duoc chon van dung                   
+//                    
+//                    jtfCourseID.setText( model.getValueAt(SRow, 0).toString());
+//                    jtfTitle.setText(model.getValueAt(SRow,1).toString());
+//                    jtfCredits.setText(model.getValueAt(SRow,2).toString());
+//                    jtfDepartment.setText(model.getValueAt(SRow,3).toString());
+//                    jboxPersonID.removeAllItems();
+//                    jboxPersonID.addItem("null");
+//                    for(personDTO ps: listps){
+//                        if(ps.getHireDate()!=null)
+//                        jboxPersonID.addItem(""+ps.getPersonID());
+//                    }
+//                    if(model.getValueAt(SRow, 4) != null)
+//                        jboxPersonID.setSelectedItem(model.getValueAt(SRow, 4).toString());
+//
+//                    
+//                    
+//                }
+//            }
+//            
+//        });
+        }
+       
+    }//GEN-LAST:event_btnsaveActionPerformed
+
+    public void setJboxPersonID(JComboBox<String> jboxPersonID) {
+        this.jboxPersonID = jboxPersonID;
+    }
+
+    public void setJtfCourseID(JTextField jtfCourseID) {
+        this.jtfCourseID = jtfCourseID;
+    }
+
+    public void setJtfCredits(JTextField jtfCredits) {
+        this.jtfCredits = jtfCredits;
+    }
+
+    public void setJtfDepartment(JTextField jtfDepartment) {
+        this.jtfDepartment = jtfDepartment;
+    }
+
+    public void setJtfTitle(JTextField jtfTitle) {
+        this.jtfTitle = jtfTitle;
+    }
+
+    public JComboBox<String> getJboxPersonID() {
+        return jboxPersonID;
+    }
+
+    public JTextField getJtfCourseID() {
+        return jtfCourseID;
+    }
+
+    public JTextField getJtfCredits() {
+        return jtfCredits;
+    }
+
+    public JTextField getJtfDepartment() {
+        return jtfDepartment;
+    }
+
+    public JTextField getJtfTitle() {
+        return jtfTitle;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -373,10 +526,9 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnremove;
+    private javax.swing.JButton btnsave;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -399,13 +551,13 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jtfTimKiem;
+    private javax.swing.JComboBox<String> jboxPersonID;
+    private javax.swing.JPanel jpnView;
+    private javax.swing.JTextField jtfCourseID;
+    private javax.swing.JTextField jtfCredits;
+    private javax.swing.JTextField jtfDepartment;
+    private javax.swing.JTextField jtfTim;
+    private javax.swing.JTextField jtfTitle;
     private javax.swing.JPanel khung;
     // End of variables declaration//GEN-END:variables
 }
