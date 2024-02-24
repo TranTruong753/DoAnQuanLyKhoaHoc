@@ -43,7 +43,7 @@ public class LoadTableCourseinstructor {
     JTable table;
     quanLyPhanCong ql;
     private JPanel jpnView;
-    private JButton btnsave,btnremove;
+    private JButton btnsave,btnremove,btnstatis;
     private JTextField jtfTim;
     private courseinstructorBLL courseinstructorbll=new courseinstructorBLL();
     private personBLL personbll=new personBLL();
@@ -52,11 +52,12 @@ public class LoadTableCourseinstructor {
     private String[] listColumn = {"CouseID","Title", "Credits","Departments","PersonID","FirstName"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public LoadTableCourseinstructor(JPanel jpnView, JButton btnsave, JTextField jtfTim,JButton btnremove,quanLyPhanCong ql){
+    public LoadTableCourseinstructor(JPanel jpnView, JButton btnsave, JTextField jtfTim,JButton btnremove,JButton btnstatis,quanLyPhanCong ql){
         this.jpnView = jpnView;
         this.btnsave = btnsave;
         this.jtfTim = jtfTim;
         this.btnremove=btnremove;
+        this.btnstatis=btnstatis;
         this.ql=ql;
     }
     public java.sql.Date cover(java.util.Date d){
