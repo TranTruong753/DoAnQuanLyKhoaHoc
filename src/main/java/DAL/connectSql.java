@@ -22,8 +22,7 @@ public class connectSql {
         try {
             Connection connection;
             // Tạo kết nối
-            connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-            System.out.println("KET NOI THANH CONG");
+            connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);      
             return connection;  
             // Lấy dữ liệu CourseID        
         } catch (SQLException e) {

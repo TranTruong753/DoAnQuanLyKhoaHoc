@@ -21,7 +21,15 @@ public class personBLL {
         List<personDTO> list = person.selectAll();
         return list;
     }
+    
     public personDTO selectById(personDTO t) {
         return person.selectById(t);
     }
+    
+    public List<personDTO> getStatistic() {   
+        List<personDTO> list = person.getStatistic();
+        return list;
+    }
+    
+    
 }

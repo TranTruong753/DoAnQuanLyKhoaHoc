@@ -3,70 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package GUI;
+import BLL.courseBLL;
 import GUI.statisticGUI;
 import BLL.courseinstructorBLL;
 import BLL.personBLL;
 import DTO.cistatisticDTO;
+import DTO.courseDTO;
 import DTO.courseinstructorDTO;
 import DTO.personDTO;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 
 /**
  *
  * @author Admin
  */
-public class quanLyPhanCong extends javax.swing.JDialog {
-
-    /**
-     * Creates new form quanLyPhanCong
-     */
-//    private cistatisticDTO cis;
+public class quanLyPhanCongFix extends javax.swing.JDialog {
+  
     private statisticGUI statisticGUI = new statisticGUI();
     private statisticGUIfix statisticGUI2 ;
     private courseinstructorBLL courseinstructorbll =new courseinstructorBLL();
     private personBLL personbll=new personBLL();
     private List<personDTO> listps = personbll.selectAll();
-    LoadTableCourseinstructor Loadtable ;
-    public quanLyPhanCong(java.awt.Frame parent, boolean modal) {
+    private courseBLL coursebll=new courseBLL();
+     
+    JTable table;
+    private String[] listColumn = {"CouseID","Title", "Credits","Departments","PersonID","FirstName"};
+    private TableRowSorter<TableModel> rowSorter = null;
+    
+    public quanLyPhanCongFix(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Loadtable = new LoadTableCourseinstructor(jpnView, btnsave, jtfTim,btnremove,btnstatis,this);
-        Loadtable.setDateToTable();
-        //controller.setEvent();
-//        Loadtable.getTable().addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                if(e.getClickCount()==1 && Loadtable.getTable().getSelectedRow() != -1){
-//                    DefaultTableModel model = (DefaultTableModel) Loadtable.getTable().getModel();
-//                    int SRow = Loadtable.getTable().getSelectedRow();                       //Lay Index dong duoc chon
-//                    SRow = Loadtable.getTable().convertRowIndexToModel(SRow);     //Khi sap xep, Index dong duoc chon van dung                   
-//                    
-//                    jtfCourseID.setText( model.getValueAt(SRow, 0).toString());
-//                    jtfTitle.setText(model.getValueAt(SRow,1).toString());
-//                    jtfCredits.setText(model.getValueAt(SRow,2).toString());
-//                    jtfDepartment.setText(model.getValueAt(SRow,3).toString());
-//                    jboxPersonID.removeAllItems();
-//                    jboxPersonID.addItem("null");
-//                    for(personDTO ps: listps){
-//                        if(ps.getHireDate()!=null)
-//                        jboxPersonID.addItem(""+ps.getPersonID());
-//                    }
-//                    if(model.getValueAt(SRow, 4) != null)
-//                        jboxPersonID.setSelectedItem(model.getValueAt(SRow, 4).toString());
-//
-//                    
-//                    
-//                }
-//            }
-//            
-//        });
+        this.setDateToTable();
         setLocationRelativeTo(null) ;
     }
 
@@ -414,9 +401,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
                 if(courseinstructorbll.insert(courseinstructorDTO)==1)
                 JOptionPane.showMessageDialog(null, "Lưu thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             else 
-                JOptionPane.showMessageDialog(null, "Lưu thất bại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                
-                
+                JOptionPane.showMessageDialog(null, "Lưu thất bại!", "Thông báo", JOptionPane.WARNING_MESSAGE);                             
             }
             else
             {
@@ -426,34 +411,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
                  JOptionPane.showMessageDialog(null, "Lưu thất bại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 
             }
-            Loadtable.setDateToTable();    
-//            Loadtable.getTable().addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                if(e.getClickCount()==1 && Loadtable.getTable().getSelectedRow() != -1){
-//                    DefaultTableModel model = (DefaultTableModel) Loadtable.getTable().getModel();
-//                    int SRow = Loadtable.getTable().getSelectedRow();                       //Lay Index dong duoc chon
-//                    SRow = Loadtable.getTable().convertRowIndexToModel(SRow);     //Khi sap xep, Index dong duoc chon van dung                   
-//                    
-//                    jtfCourseID.setText( model.getValueAt(SRow, 0).toString());
-//                    jtfTitle.setText(model.getValueAt(SRow,1).toString());
-//                    jtfCredits.setText(model.getValueAt(SRow,2).toString());
-//                    jtfDepartment.setText(model.getValueAt(SRow,3).toString());
-//                    jboxPersonID.removeAllItems();
-//                    jboxPersonID.addItem("null");
-//                    for(personDTO ps: listps){
-//                        if(ps.getHireDate()!=null)
-//                        jboxPersonID.addItem(""+ps.getPersonID());
-//                    }
-//                    if(model.getValueAt(SRow, 4) != null)
-//                        jboxPersonID.setSelectedItem(model.getValueAt(SRow, 4).toString());
-//
-//                    
-//                    
-//                }
-//            }
-//            
-//        });
+            setDateToTable();    
         }
        
     }//GEN-LAST:event_btnsaveActionPerformed
@@ -479,10 +437,146 @@ public class quanLyPhanCong extends javax.swing.JDialog {
           }else {
               JOptionPane.showMessageDialog(null, "Xóa thất bại công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
           }
-          Loadtable.setDateToTable(); 
+          setDateToTable(); 
       }
     }//GEN-LAST:event_btnremoveActionPerformed
+    
+//TableCourseinstructor : tạo bảng
+    public DefaultTableModel setTableKH(List<courseDTO> Listcourse,List<courseinstructorDTO> Listcourseinstructor, String[] listColumn){
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {        //Không được chỉnh sửa hàng và cột của bảng
+                return false;
+            }
+            
+        };
+        dtm.setColumnIdentifiers(listColumn);
+        int columns = listColumn.length;
+        Object[] obj = null;
+        int rows = Listcourse.size();
+        if(rows > 0){
+            for(int i = 0;i<rows;i++){
+                courseDTO course = Listcourse.get(i);
+                
+                obj = new Object[columns];              //Mỗi phần tử trong mảng là một cột
+                //obj[0] = (i+1);
+                obj[0] = course.getCourseId();
+                obj[1] = course.getTitle();
+                obj[2] = course.getCredits();
+                obj[3] = course.getDepartmentId();
+                for (courseinstructorDTO Listcourseinstructor1 : Listcourseinstructor) {
+                    courseinstructorDTO courseinstructor=Listcourseinstructor1;
+                    if(courseinstructor.getCourseID()==course.getCourseId()){
+                        obj[4] = courseinstructor.getPersonID();
+                        personDTO ps=new personDTO();
+                        ps.setPersonID(courseinstructor.getPersonID());
+                        obj[5] = personbll.selectById(ps).getFirstname();
+                        
+                            
+                    }
+                }
+                
+               dtm.addRow(obj); 
+            }
+            
+        }
+        
+       
+        
+        return dtm;
+    }
+    
+//    LoadTableCourseinstructor : load dữ liệu
+    public java.sql.Date cover(java.util.Date d){
+        return new java.sql.Date(d.getTime());
+    }
+    public void setDateToTable(){
+        List<courseDTO> listcourse = coursebll.selectAll();
+        List<courseinstructorDTO> listcourseinstructor = courseinstructorbll.selectAll();
+        
+        DefaultTableModel model = new TableCourseinstructor().setTableKH(listcourse,listcourseinstructor, listColumn);
+        table = new JTable(model);
+        
+        rowSorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(rowSorter);
+        
+        jtfTim.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = jtfTim.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = jtfTim.getText();
+                if(text.trim().length() == 0){
+                    rowSorter.setRowFilter(null);
+                }else{
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                
+            }
+        });
+        
+        //chỉnh bảng
+        table.setRowHeight(40);
+        table.setFont(new Font("Tahoma",Font.PLAIN,14));
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount()==1 && table.getSelectedRow() != -1){
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    int SRow = table.getSelectedRow();                       //Lay Index dong duoc chon
+                    SRow = table.convertRowIndexToModel(SRow);     //Khi sap xep, Index dong duoc chon van dung                   
+                    
+                    getJtfCourseID().setText( model.getValueAt(SRow, 0).toString());
+                    getJtfTitle().setText(model.getValueAt(SRow,1).toString());
+                    getJtfCredits().setText(model.getValueAt(SRow,2).toString());
+                    getJtfDepartment().setText(model.getValueAt(SRow,3).toString());
+                    getJboxPersonID().removeAllItems();
+                    getJboxPersonID().addItem("null");
+                    for(personDTO ps: listps){
+                        if(ps.getHireDate()!=null)
+                            getJboxPersonID().addItem(""+ps.getPersonID());
+                    }
+                    if(model.getValueAt(SRow, 4) != null)
+                        getJboxPersonID().setSelectedItem(model.getValueAt(SRow, 4).toString());
+
+                    
+                    
+                }
+            }
+            
+        });
+        //chỉnh tiêu đề
+       JTableHeader header = table.getTableHeader();
+       header.setFont(new Font("Tahoma", Font.BOLD, 14));
+       header.setPreferredSize(new Dimension(50, 50));
+       // Căn giữa tiêu đề theo chiều dọc
+       DefaultTableCellRenderer centerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+       centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.validate();
+        table.repaint();
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.getViewport().add(table);
+        scrollPane.setPreferredSize(new Dimension(800,400));
+        jpnView.removeAll();
+        jpnView.setLayout(new BorderLayout());
+        jpnView.add(scrollPane);
+        jpnView.validate();
+        jpnView.repaint();
+        }
+    
     public void setJboxPersonID(JComboBox<String> jboxPersonID) {
         this.jboxPersonID = jboxPersonID;
     }
@@ -540,20 +634,21 @@ public class quanLyPhanCong extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quanLyPhanCong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanLyPhanCongFix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quanLyPhanCong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanLyPhanCongFix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quanLyPhanCong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanLyPhanCongFix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quanLyPhanCong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(quanLyPhanCongFix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                quanLyPhanCong dialog = new quanLyPhanCong(new javax.swing.JFrame(), true);
+                quanLyPhanCongFix dialog = new quanLyPhanCongFix(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -16,6 +16,8 @@ public class personDTO {
     private String firstname;
     private Date hireDate;
     private Date enrollmentDate;
+    private int Quantity = 0;
+
 
     public personDTO() {
     }
@@ -26,6 +28,15 @@ public class personDTO {
         this.firstname = firstname;
         this.hireDate = hireDate;
         this.enrollmentDate = enrollmentDate;
+    }
+    
+     public personDTO(int personID, String lastname, String firstname, Date hireDate, Date enrollmentDate, int Quantity) {
+        this.personID = personID;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.hireDate = hireDate;
+        this.enrollmentDate = enrollmentDate;
+        this.Quantity = Quantity;
     }
 
     public int getPersonID() {
@@ -68,6 +79,16 @@ public class personDTO {
         this.enrollmentDate = enrollmentDate;
     }
 
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int Quantity) {
+        this.Quantity = Quantity;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -92,8 +113,10 @@ public class personDTO {
 
     @Override
     public String toString() {
-        return "personDTO{" + "personID=" + personID + ", lastname=" + lastname + ", firstname=" + firstname + ", hireDate=" + hireDate + ", enrollmentDate=" + enrollmentDate + '}';
+        return "personDTO{" + "personID=" + personID + ", lastname=" + lastname + ", firstname=" + firstname + ", hireDate=" + hireDate + ", enrollmentDate=" + enrollmentDate + ", Quantity=" + Quantity + '}';
     }
+
+    
     
     
     

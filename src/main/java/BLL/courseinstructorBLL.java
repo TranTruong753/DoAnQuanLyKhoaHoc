@@ -20,19 +20,26 @@ public class courseinstructorBLL {
         List<courseinstructorDTO> list = courseinstructor.selectAll();
         return list;
     }
+    
     public int insert(courseinstructorDTO t) {
         if(courseinstructor.insert(t)==1)
             return 1;
         return 0;
       
     }
+    
     public int update(courseinstructorDTO t) {
         if(courseinstructor.update(t)==1)
             return 1;
         return 0;
     }
+      
     public courseinstructorDTO selectById(courseinstructorDTO t) {
         return courseinstructor.selectById(t);
+    }
+    
+    public int delete(courseinstructorDTO t){
+        return courseinstructor.delete(t);
     }
     
 }

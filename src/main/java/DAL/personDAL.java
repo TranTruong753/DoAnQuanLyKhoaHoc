@@ -192,6 +192,70 @@ public class personDAL implements queryDatabase<personDTO>{
         return result;
     }
     
+    public List<personDTO> getStatistic(){
+        //Lấy tất cả đối tượng trong bảng
+        List<personDTO> list = new ArrayList<>();
+        try {
+            // Bước 1: tạo kết nối đến CSDL
+            Connection con = connectSql.getConnection();
+
+            // Bước 2: tạo ra đối tượng statement
+            String sql = 
+//            "SELECT \n" +
+//            "    person.PersonID,\n" +
+//            "    person.Lastname,\n" +
+//            "    person.Firstname,\n" +
+//            "    person.HireDate,\n" +
+//            "    person.EnrollmentDate,\n" +
+//            "    COUNT(person.PersonID) AS Quantity \n" +
+//            "FROM \n" +
+//            "    courseinstructor\n" +
+//            "INNER JOIN \n" +
+//            "    person ON courseinstructor.PersonID = person.PersonID \n" +
+//            "GROUP BY \n" +
+//            "    person.PersonID;";
+            "SELECT \n" +
+            "    person.PersonID,\n" +
+            "    person.Lastname,\n" +
+            "    person.Firstname,\n" +
+            "    person.HireDate,\n" +
+            "    person.EnrollmentDate,\n" +
+            "    COALESCE(COUNT(courseinstructor.PersonID), 0) AS Quantity \n" +
+            "FROM \n" +
+            "    person\n" +
+            "LEFT JOIN \n" +
+            "    courseinstructor ON person.PersonID = courseinstructor.PersonID \n" +
+            "WHERE \n" +
+            "    person.EnrollmentDate IS NULL\n" +
+            "GROUP BY \n" +
+            "    person.PersonID, person.Lastname, person.Firstname, person.HireDate, person.EnrollmentDate;";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            // Bước 3: thực thi câu lệnh SQL          
+            ResultSet rs = st.executeQuery();
+
+            // Bước 4:
+            while (rs.next()) {
+               personDTO s = new personDTO();
+               s.setPersonID(rs.getInt("PersonID"));
+               s.setLastname(rs.getString("Lastname"));
+               s.setFirstname(rs.getString("Firstname"));
+               s.setHireDate(rs.getDate("HireDate"));
+               s.setEnrollmentDate(rs.getDate("EnrollmentDate"));
+               s.setQuantity(rs.getInt("Quantity"));
+               list.add(s);
+            }
+            // Bước 5:
+            connectSql.closeConnection(con);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }            
+        return list;
+    }
+    
+   
+    
     
     
 }
