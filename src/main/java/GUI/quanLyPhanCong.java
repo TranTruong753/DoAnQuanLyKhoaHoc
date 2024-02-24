@@ -9,7 +9,6 @@ import BLL.personBLL;
 import DTO.cistatisticDTO;
 import DTO.courseinstructorDTO;
 import DTO.personDTO;
-import LoadTable.LoadTableCourseinstructor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -395,7 +394,10 @@ public class quanLyPhanCong extends javax.swing.JDialog {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         courseinstructorDTO courseinstructorDTO= new courseinstructorDTO();
-        if(jboxPersonID.getSelectedItem().equals("null"))
+        
+        if (jtfCourseID.getText().equals(""))
+            JOptionPane.showMessageDialog(null, "Hãy chọn khoa hoc", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        else if(jboxPersonID.getSelectedItem().equals("null"))
             JOptionPane.showMessageDialog(null, "Hãy chọn giảng viên dạy", "Thông báo", JOptionPane.WARNING_MESSAGE);
         
         else

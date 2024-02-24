@@ -5,7 +5,6 @@
 package GUI;
 
 import DTO.cistatisticDTO;
-import LoadTable.ChartCreate;
 
 /**
  *

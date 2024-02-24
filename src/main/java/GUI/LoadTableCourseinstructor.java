@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package LoadTable;
+package GUI;
 
 import BLL.courseBLL;
 import BLL.courseinstructorBLL;
@@ -11,7 +11,6 @@ import DTO.courseDTO;
 import DTO.courseinstructorDTO;
 import DTO.personDTO;
 import GUI.quanLyPhanCong;
-import Table.TableCourseinstructor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
