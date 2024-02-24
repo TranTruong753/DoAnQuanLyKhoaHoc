@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package GUI;
-
+import GUI.statisticGUI;
 import BLL.courseinstructorBLL;
 import BLL.personBLL;
+import DTO.cistatisticDTO;
 import DTO.courseinstructorDTO;
 import DTO.personDTO;
-import LoadTable.LoadTableCourseinstructor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -26,6 +27,8 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     /**
      * Creates new form quanLyPhanCong
      */
+//    private cistatisticDTO cis;
+    private statisticGUI statisticGUI = new statisticGUI();
     private courseinstructorBLL courseinstructorbll =new courseinstructorBLL();
     private personBLL personbll=new personBLL();
     private List<personDTO> listps = personbll.selectAll();
@@ -33,7 +36,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     public quanLyPhanCong(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Loadtable = new LoadTableCourseinstructor(jpnView, btnsave, jtfTim,btnremove,this);
+        Loadtable = new LoadTableCourseinstructor(jpnView, btnsave, jtfTim,btnremove,btnstatis,this);
         Loadtable.setDateToTable();
         //controller.setEvent();
 //        Loadtable.getTable().addMouseListener(new MouseAdapter() {
@@ -99,7 +102,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         btnremove = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnstatis = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -260,10 +263,15 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         jPanel13.setPreferredSize(new java.awt.Dimension(290, 70));
         jPanel13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
 
-        jButton5.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jButton5.setText("XEM THỐNG KÊ DANH SÁCH LỚP");
-        jButton5.setPreferredSize(new java.awt.Dimension(260, 40));
-        jPanel13.add(jButton5);
+        btnstatis.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        btnstatis.setText("XEM THỐNG KÊ DANH SÁCH LỚP");
+        btnstatis.setPreferredSize(new java.awt.Dimension(260, 40));
+        btnstatis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnstatisActionPerformed(evt);
+            }
+        });
+        jPanel13.add(btnstatis);
 
         jPanel9.add(jPanel13, java.awt.BorderLayout.PAGE_END);
 
@@ -386,7 +394,10 @@ public class quanLyPhanCong extends javax.swing.JDialog {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         courseinstructorDTO courseinstructorDTO= new courseinstructorDTO();
-        if(jboxPersonID.getSelectedItem().equals("null"))
+        
+        if (jtfCourseID.getText().equals(""))
+            JOptionPane.showMessageDialog(null, "Hãy chọn khoa hoc", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        else if(jboxPersonID.getSelectedItem().equals("null"))
             JOptionPane.showMessageDialog(null, "Hãy chọn giảng viên dạy", "Thông báo", JOptionPane.WARNING_MESSAGE);
         
         else
@@ -442,6 +453,11 @@ public class quanLyPhanCong extends javax.swing.JDialog {
         }
        
     }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void btnstatisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstatisActionPerformed
+        
+        statisticGUI.setVisible(true);
+    }//GEN-LAST:event_btnstatisActionPerformed
 
     public void setJboxPersonID(JComboBox<String> jboxPersonID) {
         this.jboxPersonID = jboxPersonID;
@@ -528,7 +544,7 @@ public class quanLyPhanCong extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnremove;
     private javax.swing.JButton btnsave;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnstatis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
