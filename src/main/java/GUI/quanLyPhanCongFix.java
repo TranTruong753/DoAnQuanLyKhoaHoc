@@ -4,10 +4,8 @@
  */
 package GUI;
 import BLL.courseBLL;
-import GUI.statisticGUI;
 import BLL.courseinstructorBLL;
 import BLL.personBLL;
-import DTO.cistatisticDTO;
 import DTO.courseDTO;
 import DTO.courseinstructorDTO;
 import DTO.personDTO;
@@ -39,8 +37,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class quanLyPhanCongFix extends javax.swing.JDialog {
   
-    private statisticGUI statisticGUI = new statisticGUI();
-    private statisticGUIfix statisticGUI2 ;
+    private statisticGUIfix statisticGUI ;
     private courseinstructorBLL courseinstructorbll =new courseinstructorBLL();
     private personBLL personbll=new personBLL();
     private List<personDTO> listps = personbll.selectAll();
@@ -417,9 +414,8 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
     }//GEN-LAST:event_btnsaveActionPerformed
 
     private void btnstatisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstatisActionPerformed
-    //        statisticGUI.setVisible(true);
-    statisticGUI2 = new statisticGUIfix(statisticGUI, rootPaneCheckingEnabled);
-    statisticGUI2.setVisible(true);
+    statisticGUI = new statisticGUIfix(this, rootPaneCheckingEnabled);
+    statisticGUI.setVisible(true);
     }//GEN-LAST:event_btnstatisActionPerformed
 
     private void btnremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoveActionPerformed
@@ -447,8 +443,7 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
             @Override
             public boolean isCellEditable(int row, int column) {        //Không được chỉnh sửa hàng và cột của bảng
                 return false;
-            }
-            
+            }       
         };
         dtm.setColumnIdentifiers(listColumn);
         int columns = listColumn.length;
@@ -456,8 +451,7 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
         int rows = Listcourse.size();
         if(rows > 0){
             for(int i = 0;i<rows;i++){
-                courseDTO course = Listcourse.get(i);
-                
+                courseDTO course = Listcourse.get(i);             
                 obj = new Object[columns];              //Mỗi phần tử trong mảng là một cột
                 //obj[0] = (i+1);
                 obj[0] = course.getCourseId();
@@ -470,19 +464,13 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
                         obj[4] = courseinstructor.getPersonID();
                         personDTO ps=new personDTO();
                         ps.setPersonID(courseinstructor.getPersonID());
-                        obj[5] = personbll.selectById(ps).getFirstname();
-                        
-                            
+                        obj[5] = personbll.selectById(ps).getFirstname();                                                
                     }
-                }
-                
+                }              
                dtm.addRow(obj); 
             }
             
-        }
-        
-       
-        
+        }       
         return dtm;
     }
     
@@ -490,11 +478,12 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
     public java.sql.Date cover(java.util.Date d){
         return new java.sql.Date(d.getTime());
     }
+    
     public void setDateToTable(){
         List<courseDTO> listcourse = coursebll.selectAll();
         List<courseinstructorDTO> listcourseinstructor = courseinstructorbll.selectAll();
         
-        DefaultTableModel model = new TableCourseinstructor().setTableKH(listcourse,listcourseinstructor, listColumn);
+        DefaultTableModel model = setTableKH(listcourse,listcourseinstructor, listColumn);
         table = new JTable(model);
         
         rowSorter = new TableRowSorter<>(table.getModel());
@@ -510,7 +499,6 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
-
             @Override
             public void removeUpdate(DocumentEvent e) {
                 String text = jtfTim.getText();
@@ -520,7 +508,6 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
                 }
             }
-
             @Override
             public void changedUpdate(DocumentEvent e) {
                 
@@ -551,8 +538,6 @@ public class quanLyPhanCongFix extends javax.swing.JDialog {
                     if(model.getValueAt(SRow, 4) != null)
                         getJboxPersonID().setSelectedItem(model.getValueAt(SRow, 4).toString());
 
-                    
-                    
                 }
             }
             
